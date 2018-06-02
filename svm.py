@@ -6,6 +6,8 @@ from numpy import array
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.stop_words import ENGLISH_STOP_WORDS
 from sklearn.metrics import f1_score, accuracy_score
+import pickle
+
 drug_train = []
 drug_test = []
 rule_train = []
@@ -108,7 +110,15 @@ def modelling_taining():
     print("F1 score LINEAR {:.4}%".format(f1_score(y_test, final_prediction_linear, average='macro') * 100))
     print("Accuracy score LINEAR {:.4}%".format(accuracy_score(y_test, final_prediction_linear) * 100))
 
+    # save the model to disk
+    filename1 = 'SvmNonLinearModel'
+    filename2 = 'SvmLinearModel'
+    pickle.dump(model_rbf, open(filename1, 'wb'))
+    pickle.dump(model_linear, open(filename2, 'wb'))
 
+    # loaded_model = pickle.load(open(filename, 'rb'))
+    # result = loaded_model.score(X_test, y_test)
+    # print(result,'result')
 
 if __name__ == '__main__':
     modelling_taining()
